@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="favicon.ico" rel="shortcut icon" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>Kontakt - Iza&#273;i.ba</title>
+    <meta name="author" content="Adnan Islamovi&#263;" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  </head>
+  <body>
+    <img id="logo" src="party.jpeg" alt="logo" />
+    <h1>Iza&#273;i.ba</h1>
+    <h2>Sponzori</h2>
+    <ul id="navigacija">
+      <li><a href="index.html">Naslovnica</a></li>
+      <li><a href="lokacije.html">Lokacije</a></li>
+      <li><a href="sponzori.html">Sponzori</a></li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+    <div id="sadrzaj">
+      <form>
+        Ime: <input type="text" name="ime"><br />
+        Prezime: <input type="text" name="prezime"><br />
+        Datum ro&#273;enja: <input type="date" name="datumRodjenja"><br />
+        E-mail: <input type="email" name="mail"><br />
+        Grad: <input list="gradovi"><br />
+        <datalist id="gradovi">
+          <option value="Sarajevo">
+          <option value="Mostar">
+          <option value="Zenica">
+          <option value="Biha&#263;">
+          <option value="Tuzla">
+          <option value="Travnik">
+          <option value="Jajce">
+          <option value="Cazin">
+          <option value="Konjic">
+          <option value="Jablanica">
+        </datalist>
+        <select name="vrstaKontakta">
+          <option value="pitanje">Pitanje</option>
+          <option value="sugestija">Sugestija</option>
+          <option value="kritika">Kritika</option>
+          <option value="pohvala">Pohvala</option>
+        </select><br />
+        <textarea name="kontakt">
+        </textarea><br />
+        Ocjena: 0 <input type="range" name="ocjena"> 5
+      </form>
+    </div>
+  </body>
+</html>
