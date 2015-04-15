@@ -19,7 +19,7 @@ li > a:visited{color:#660033;}
 li > a:hover {color:#FFFFFF;}
 
 #logo {
-  //position:absolute;
+  /*position:absolute;*/
   top:0px;
   left:0px;
   height:18%;
@@ -42,15 +42,75 @@ li > a:hover {color:#FFFFFF;}
 
 #sadrzaj {
   float:left;
+  width:500px;
 }
 
-table {
+table, th, td {
   border: 1px solid white;
-  border-style:colapse;
+  border-collapse:collapse;
 }
 
 form {
   position:relative;
   left:30%;
   width:50%;
+}
+
+.tekst {
+  color:#FF0066;
+}
+
+.error {
+  color:#FF0000;
+}
+
+form {
+  position:relative;
+  float:left;
+  width:100%;
+}
+
+#meni {
+  /*position:absolute;
+  display:none;*/
+}
+
+#meni > li {
+  display:inline;
+  padding:3px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li.fl {
+    float: left;
+}
+
+#sub a:link, #sub a:visited, #menuDiv a:link, #menuDiv a:visited {
+    display: block;
+    width: 120px;
+    font-weight: bold;
+    color: #FFFFFF;
+    background-color: #555555;
+    text-align: center;
+    padding: 4px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+#sub a:hover, #sub a:active, #menuDiv a:hover, #menuDiv a:active {
+    background-color: #999999;
+}
+
+#sub {
+  display:none;
+}
+
+.meni {
+  background-color:#CCCCCC;
 }

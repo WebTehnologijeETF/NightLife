@@ -6,8 +6,37 @@
     <title>Lokacije - Iza&#273;i.ba</title>
     <meta name="author" content="Adnan Islamovi&#263;" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="nightlife.js"></script>
   </head>
   <body>
+<div id="menuDiv" style="width:100%">
+        <!--<ul class="meni">
+          <li>
+	    <a>Promjena boje</a>
+            <div>
+              <ul id="podmeni">
+                <li><a href="javascript:void();" onclick="changeColor(255,0,102)">Standardna</a></li>
+                <li><a href="javascript:void();" onclick="changeColor(255,0,0)">Crvena</a></li>
+                <li><a href="javascript:void();" onclick="changeColor(0,255,0)">Zelena</a></li>
+                <li><a href="javascript:void();" onclick="changeColor(0,0,255)">Plava</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>-->
+<ul class="meni">
+  <li class="fl"><a href="javascript:void(0);" onclick="showSub()">Promjena boje teksta</a>
+<div onmouseout="hideSub()">
+  <ul id="sub">
+                <li><a href="javascript:void();" onclick="changeColor(255,0,102)">Standardna</a></li>
+                <li><a href="javascript:void();" onclick="changeColor(255,0,0)">Crvena</a></li>
+                <li><a href="javascript:void();" onclick="changeColor(0,255,0)">Zelena</a></li>
+                <li><a href="javascript:void();" onclick="changeColor(0,0,255)">Plava</a></li>
+              </ul>
+</div>
+</li>
+<li>&nbsp;</li>
+</ul>
+      </div>
     <img id="logo" src="party.jpeg" alt="logo" />
     <h1>Iza&#273;i.ba</h1>
     <h2>Lokacije</h2>
@@ -22,70 +51,70 @@
         <thead>
           <tr>
             <th>
-              Naziv
+              <span class="tekst">Naziv</span>
             </th>
             <th>
-              Adresa
+              <span class="tekst">Adresa</span>
             </th>
             <th>
-              Opis
+              <span class="tekst">Opis</span>
             </th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>
-              Cinemas
+              <span class="tekst">Cinemas</span>
             </td>
             <td>
-              Mehmeda Spahe 20
+              <span class="tekst">Mehmeda Spahe 20</span>
             </td>
             <td>
-              Pru&#382;a ugodnu zabavu uz raznovrstan program: muzika u&#382;ivo, klubski koncerti, tematske i salsa ve&#269;eri, te muziku uz resident DJ-a. Na svega par stotina metara od Vje&#269;ne vatre u ulici Mehmeda Spahe 20 u prepoznatljivom ambijentu nudimo Vam odli&#269;nu atmosferu uz raznovrsna pi&#263;a. Nemojte se iznenaditi ukoliko u na&#353;em Club-u nai&#273;ete na doga&#273;aje koje jo&#353; uvijek niste imali priliku vidjeti u na&#353;em gradu. Trudimo se da svaki Va&#353; izlazak bude ugodan i zabavan.
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Vanilla
-            </td>
-            <td>
-              Kulovi&#263;a 4
-            </td>
-            <td>
-              Vanilla je bistro smje&#353;ten u centru Sarajeva. Ljubazna ekipa u predivnom i opu&#353;taju&#263;em ambijentu nudi Vam samo najbolji izbor pi&#263;a i pozitivnu energiju. Do&#273;ite i uvjerite se sami ... Jednom Vanilla - uvijek Vanilla...
+              <span class="tekst">Pru&#382;a ugodnu zabavu uz raznovrstan program: muzika u&#382;ivo, klubski koncerti, tematske i salsa ve&#269;eri, te muziku uz resident DJ-a. Na svega par stotina metara od Vje&#269;ne vatre u ulici Mehmeda Spahe 20 u prepoznatljivom ambijentu nudimo Vam odli&#269;nu atmosferu uz raznovrsna pi&#263;a. Nemojte se iznenaditi ukoliko u na&#353;em Club-u nai&#273;ete na doga&#273;aje koje jo&#353; uvijek niste imali priliku vidjeti u na&#353;em gradu. Trudimo se da svaki Va&#353; izlazak bude ugodan i zabavan.</span>
             </td>
           </tr>
           <tr>
             <td>
-              Cheers
+              <span class="tekst">Vanilla</span>
             </td>
             <td>
-              Muvekita 4
+              <span class="tekst">Kulovi&#263;a 4</span>
             </td>
             <td>
-              Pub Cheers je otvoren 08.10.2008. i od samog otvaranja postao jedno od najaktuelnijih lokala za dnevni predah i no&#263;ni &#382;ivot. Drvo i cigla, koji preovladavaju u Cheers pubu ne &#269;ine samo ugostiteljski objekat, nego toplo umjetni&#269;ko djelo, gdje se svaki gost mo&#382;e prona&#263;i u svom svijetu umjetnosti. U prepoznatljivom ambijentu engleskih pubova, Cheers pub nudi raznovrstan izbor piva, whisky-ja i alkoholnih pi&#263;a, uz kvalitetne live svirke i tematske zabave.
-            </td>
-          </tr>
-          <tr>
-            <td>
-              City pub
-            </td>
-            <td>
-              Had&#382;iristi&#263;a bb
-            </td>
-            <td>
-              City Pub se nalazi u samom srcu Sarajeva, jednu ulicu od Ba&#353;&#269;ar&#353;ije. Veoma je popularno mjesto u kojem mo&#382;ete &#269;uti blues, rock, DJ-eve ili jazz muziku. Organizuju skoro sve od koncerata do filmskih ve&#269;eri i umjetni&#269;kih preformansa.
+              <span class="tekst">Vanilla je bistro smje&#353;ten u centru Sarajeva. Ljubazna ekipa u predivnom i opu&#353;taju&#263;em ambijentu nudi Vam samo najbolji izbor pi&#263;a i pozitivnu energiju. Do&#273;ite i uvjerite se sami ... Jednom Vanilla - uvijek Vanilla...</span>
             </td>
           </tr>
           <tr>
             <td>
-              Murphy's
+              <span class="tekst">Cheers</span>
             </td>
             <td>
-              Muvekita bb
+              <span class="tekst">Muvekita 4</span>
             </td>
             <td>
-              &nbsp;
+              <span class="tekst">Pub Cheers je otvoren 08.10.2008. i od samog otvaranja postao jedno od najaktuelnijih lokala za dnevni predah i no&#263;ni &#382;ivot. Drvo i cigla, koji preovladavaju u Cheers pubu ne &#269;ine samo ugostiteljski objekat, nego toplo umjetni&#269;ko djelo, gdje se svaki gost mo&#382;e prona&#263;i u svom svijetu umjetnosti. U prepoznatljivom ambijentu engleskih pubova, Cheers pub nudi raznovrstan izbor piva, whisky-ja i alkoholnih pi&#263;a, uz kvalitetne live svirke i tematske zabave.</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="tekst">City pub</span>
+            </td>
+            <td>
+              <span class="tekst">Had&#382;iristi&#263;a bb</span>
+            </td>
+            <td>
+              <span class="tekst">City Pub se nalazi u samom srcu Sarajeva, jednu ulicu od Ba&#353;&#269;ar&#353;ije. Veoma je popularno mjesto u kojem mo&#382;ete &#269;uti blues, rock, DJ-eve ili jazz muziku. Organizuju skoro sve od koncerata do filmskih ve&#269;eri i umjetni&#269;kih preformansa.</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="tekst">Murphy's</span>
+            </td>
+            <td>
+              <span class="tekst">Muvekita bb</span>
+            </td>
+            <td>
+              <span class="tekst">&nbsp;</span>
             </td>
           </tr>
         </tbody>

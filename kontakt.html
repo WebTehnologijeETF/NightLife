@@ -6,8 +6,37 @@
     <title>Kontakt - Iza&#273;i.ba</title>
     <meta name="author" content="Adnan Islamovi&#263;" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="nightlife.js"></script>
   </head>
   <body>
+<div id="menuDiv" style="width:100%">
+        <!--<ul class="meni">
+          <li>
+	    <a>Promjena boje</a>
+            <div>
+              <ul id="podmeni">
+                <li><a href="javascript:void();" onclick="changeColor(255,0,102)">Standardna</a></li>
+                <li><a href="javascript:void();" onclick="changeColor(255,0,0)">Crvena</a></li>
+                <li><a href="javascript:void();" onclick="changeColor(0,255,0)">Zelena</a></li>
+                <li><a href="javascript:void();" onclick="changeColor(0,0,255)">Plava</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>-->
+<ul class="meni">
+  <li class="fl"><a href="javascript:void(0);" onclick="showSub()">Promjena boje teksta</a>
+<div onmouseout="hideSub()">
+  <ul id="sub">
+                <li><a href="javascript:void();" onclick="changeColor(255,0,102)">Standardna</a></li>
+                <li><a href="javascript:void();" onclick="changeColor(255,0,0)">Crvena</a></li>
+                <li><a href="javascript:void();" onclick="changeColor(0,255,0)">Zelena</a></li>
+                <li><a href="javascript:void();" onclick="changeColor(0,0,255)">Plava</a></li>
+              </ul>
+</div>
+</li>
+<li>&nbsp;</li>
+</ul>
+      </div>
     <img id="logo" src="party.jpeg" alt="logo" />
     <h1>Iza&#273;i.ba</h1>
     <h2>Sponzori</h2>
@@ -18,12 +47,12 @@
       <li><a href="kontakt.html">Kontakt</a></li>
     </ul>
     <div id="sadrzaj">
-      <form>
-        Ime: <input type="text" name="ime"><br />
-        Prezime: <input type="text" name="prezime"><br />
-        Datum ro&#273;enja: <input type="date" name="datumRodjenja"><br />
-        E-mail: <input type="email" name="mail"><br />
-        Grad: <input list="gradovi"><br />
+      <form action="#" onsubmit="return validno()">
+        <label for="ime" class="tekst">Ime:</label> <input id="ime" type="text" name="ime" onchange="provjeriIme()"><span id="errorIme" class="error"></span><br />
+        <label for="prezime" class="tekst">Prezime:</label> <input id="prezime" type="text" name="prezime" onchange="provjeriPrezime()"><span id="errorPrezime" class="error"></span><br />
+        <label for="datumRodjenja" class="tekst">Datum ro&#273;enja:</label> <input id="datumRodjenja" type="date" name="datumRodjenja" onchange="provjeriDatum()"><span id="errorDatumRodjenja" class="error"></span><br />
+        <label for="mail" class="tekst">E-mail:</label> <input id="mail" type="email" name="mail" onchange="provjeriMail()"><span id="errorMail" class="error"></span><br />
+        <label for="grad" class="tekst">Grad:</label> <input id="grad" list="gradovi" name="grad"><span id="errorGrad" class="error"></span><br />
         <datalist id="gradovi">
           <option value="Sarajevo">
           <option value="Mostar">
@@ -36,15 +65,17 @@
           <option value="Konjic">
           <option value="Jablanica">
         </datalist>
-        <select name="vrstaKontakta">
+        <select id="vrstaKontakta" name="vrstaKontakta" onchange="provjeriKontakt()">
+          <option value="">Izaberite...</option>
           <option value="pitanje">Pitanje</option>
           <option value="sugestija">Sugestija</option>
           <option value="kritika">Kritika</option>
           <option value="pohvala">Pohvala</option>
         </select><br />
-        <textarea name="kontakt">
-        </textarea><br />
-        Ocjena: 0 <input type="range" name="ocjena"> 5
+        <textarea id="kontakt" name="kontakt" onchange="provjeriKontakt()">
+        </textarea><span id="errorKontakt" class="error"></span><br />
+        <label for="ocjena" class="tekst">Ocjena: </label><span class="tekst">0</span> <input id="ocjena" type="range" name="ocjena"> <span class="tekst">5</span><br />
+        <input type="submit" value="Po&#353;alji">
       </form>
     </div>
   </body>
