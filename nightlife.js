@@ -62,3 +62,107 @@ function changeColor(r, g, b){
   if(typeof(document.styleSheets[0][cssRuleCode][12].style) !== 'undefined') document.styleSheets[0][cssRuleCode][12].style.color = "rgb(" + r + "," + g + "," + b + ")";
   if(typeof(document.styleSheets[0][cssRuleCode][12].value) !== 'undefined') document.styleSheets[0][cssRuleCode][12].value.color = "rgb(" + r + "," + g + "," + b + ")";
 }
+
+function provjeriPbroj() {
+  var grad = document.getElementById("grad");
+  var pBroj = document.getElementById("pbroj");
+  myAjax(
+    'GET',
+    'http://zamger.etf.unsa.ba/wt/postanskiBroj.php?mjesto=' + grad.value + '&postanskiBroj=' + pBroj.value,
+    null,
+    function(data) {
+      if(data.ok) document.getElementById("errorPbroj").innerHTML = ""; 
+      else if(data.greska) document.getElementById("errorPbroj").innerHTML = data.greska;
+      else if(data.error) document.getElementById("errorPbroj").innerHTML = data.error;
+      else document.getElementById("errorPbroj").innerHTML = "Nije moguce utvrditi validnost";
+    },
+    function(data) {
+      alert('Do&#353;lo je do gre&#353;ke, poku&#353;ajte opet!');       return false;
+    }
+  );
+}
+
+function myAjax(method, url, data, success, fail) {
+  data = data || null;
+  var httpRequest;
+  if (window.XMLHttpRequest) {
+      httpRequest = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+      try {
+        httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+      } 
+      catch (e) {
+        try {
+          httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        } 
+        catch (e) {}
+      }
+    }
+    if (!httpRequest) {
+      alert('Va&#353; browser ne podrzava ajax!');
+      return false;
+    }
+
+  httpRequest.onreadystatechange = function(){
+    if (httpRequest.readyState === 4) {
+      var test = JSON.parse(httpRequest.responseText);
+      if (httpRequest.status === 200) {
+          success(test);
+      } else {
+        fail(test);
+      }
+    }
+  };
+
+  httpRequest.open(method, url, true);
+  httpRequest.send(data);
+}
+
+function ajaxPageload(method, url, data, success, fail) {
+  data = data || null;
+  var httpRequest;
+  if (window.XMLHttpRequest) {
+      httpRequest = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+      try {
+        httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+      } 
+      catch (e) {
+        try {
+          httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        } 
+        catch (e) {}
+      }
+    }
+    if (!httpRequest) {
+      alert('Va&#353; browser ne podrzava ajax!');
+      return false;
+    }
+
+  httpRequest.onreadystatechange = function(){
+    if (httpRequest.readyState === 4) {
+      var test = httpRequest.responseText;
+      if (httpRequest.status === 200) {
+          success(test);
+      } else {
+        fail(test);
+      }
+    }
+  };
+
+  httpRequest.open(method, url, true);
+  httpRequest.send(data);
+}
+
+function setContent(content) {
+  ajaxPageload('GET',
+          content,
+          null,
+          function(data) {
+            document.getElementById("sadrzaj").innerHTML = data;
+          },
+          function(data) {
+            alert("Gre&#353;ka: " + data);
+          }
+         );
+}
