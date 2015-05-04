@@ -1,0 +1,7 @@
+ <form action="#" onsubmit="return validanPredmet()">
+        <label for="naziv" class="tekst">Naziv:</label> <input id="naziv" type="text" name="naziv" onchange="provjeriNaziv()"><span id="errorNaziv" class="error"></span><br />
+        <label for="opis" class="tekst">Opis:</label> <input id="opis" type="text" name="opis"><br />
+        <label for="kolicina" class="tekst">Kolicina:</label> <input id="kolicina" type="text" name="kolicina"><br />
+        <label for="cijena" class="tekst">Cijena:</label> <input id="cijena" type="text" name="cijena"><br />
+        <input type="submit" value="Dodaj" onclick="dodajPredmet()">
+      </form>

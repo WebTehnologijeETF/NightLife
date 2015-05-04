@@ -166,3 +166,37 @@ function setContent(content) {
           }
          );
 }
+
+//novo
+
+function validanPredmet() {
+  var naziv = document.getElementById("naziv");
+  if(naziv.value.trim() == "") {document.getElementById("errorNaziv").innerHTML = "Morate unijeti naziv"; return false;}
+  return true;
+}
+
+function provjeriNaziv() {
+  var naziv = document.getElementById("naziv");
+  if(naziv.value.trim() != "") {document.getElementById("errorNaziv").innerHTML = "";}
+}
+
+function dodajPredmet() {
+  if(validanPredmet()) {
+    var predmet = {};
+    predmet.naziv = document.GetElementById("naziv");
+    predmet.opis = document.GetElementById("opis");
+    predmet.kolicina = document.GetElementById("kolicina");
+    predmet.cijena = document.GetElementById("cijena");
+    var data = {};
+    data.brindexa = 15295;
+    data.akcija = "dodavanje";
+    data.predmet = JSON.stringify(predmet);
+    ajaxPageload(
+      'POST',
+      'http://zamger.etf.unsa.ba/wt/proizvodi.php',
+      data,
+      function(x) {alert("Uspjesno dodan!");},
+      function(x) {alert("Dodavanje nije uspjelo :(")}
+    );
+  }
+}
