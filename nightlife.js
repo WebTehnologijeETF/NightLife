@@ -9,12 +9,19 @@ function validno() {
   var vrstaKontakta = document.getElementById("vrstaKontakta");
 
   var mailPattern = /^[a-z,A-Z][a-z,A-Z,\d,\-,\_,\.]*@[a-z,A-Z,\d,\-,\_,\.]{2,}\.[a-z,A-Z]{2,5}$/;
-  var datumPattern = /^\d\d?(\.|\/)\d\d?(\.|\/)\d\d\d\d\.?$/;
+  var datumPattern = /^\d\d?(\.|\/)\d\d?(\.|\/)\d\d\d\d\.?$/; //ovaj regex nije dovoljno dobar, osim kao indikator da je unesena vrijednost totalno besmislena
 
   if(ime.value.trim() == "") {document.getElementById("errorIme").innerHTML = "Morate unijeti ime"; valid = false;}
   if(prezime.value.trim() == "") {document.getElementById("errorPrezime").innerHTML = "Morate unijeti prezime"; valid = false;}
   if(!mailPattern.test(mail.value)) {document.getElementById("errorMail").innerHTML = "Morate unijeti ispravan e-mail"; valid = false;}
-  if(!datumPattern.test(datum.value)) {document.getElementById("errorDatumRodjenja").innerHTML = "Morate unijeti ispravan datum"; valid = false;}
+  if(!datumPattern.test(datum.value)) {
+    var arr = datum.value.split('.'); // valjda ce se unositi sa tackom
+    var tmp = arr[0];
+    arr[0] = arr[1];
+    arr[1] = tmp;
+    var val = arr.join('/'); // po americki ! 
+    if(isNaN(Date.parse(val))) document.getElementById("errorDatumRodjenja").innerHTML = "Morate unijeti ispravan datum"; valid = false;
+  }
   if(vrstaKontakta.value != "") {if(kontakt.value.trim() == ""){document.getElementById("errorKontakt").innerHTML = "Ako ste izabrali vrstu kontakta morate ostaviti komentar"; valid = false;}}
 
   return valid;
@@ -36,10 +43,20 @@ function provjeriMail() {
   if(mailPattern.test(mail.value)) {document.getElementById("errorMail").innerHTML = "";}
 }
 
+// dodana detaljnija provjeraispravnosti datuma !
 function provjeriDatum() {
   var datumPattern = /^\d\d?(\.|\/)\d\d?(\.|\/)\d\d\d\d\.?$/;
   var datum = document.getElementById("datumRodjenja");
-  if(datumPattern.test(datum.value)) {document.getElementById("errorDatumRodjenja").innerHTML = "";}
+  if(datumPattern.test(datum.value)) {
+    var arr = datum.value.split('.'); // valjda ce se unositi sa tackom
+    if(arr.length == 1) arr = arr[0].split('/'); // za svaki slucaj...
+    //if(arr.length == 1) arr = arr[0].split('-'); // ne mislim podrzavati ovaj format unosa !
+    var tmp = arr[0];
+    arr[0] = arr[1];
+    arr[1] = tmp;
+    var val = arr.join('/'); // po americki ! 
+    if(!isNaN(Date.parse(val))) document.getElementById("errorDatumRodjenja").innerHTML = "";
+  }
 }
 
 function provjeriKontakt() {
@@ -63,7 +80,7 @@ function changeColor(r, g, b){
   if(typeof(document.styleSheets[0][cssRuleCode][12].value) !== 'undefined') document.styleSheets[0][cssRuleCode][12].value.color = "rgb(" + r + "," + g + "," + b + ")";
 }
 
-function provjeriPbroj() {
+function provjeriPbroj(success) { // prosireno...
   var grad = document.getElementById("grad");
   var pBroj = document.getElementById("pbroj");
   myAjax(
@@ -71,13 +88,13 @@ function provjeriPbroj() {
     'http://zamger.etf.unsa.ba/wt/postanskiBroj.php?mjesto=' + grad.value + '&postanskiBroj=' + pBroj.value,
     null,
     function(data) {
-      if(data.ok) document.getElementById("errorPbroj").innerHTML = ""; 
-      else if(data.greska) document.getElementById("errorPbroj").innerHTML = data.greska;
-      else if(data.error) document.getElementById("errorPbroj").innerHTML = data.error;
-      else document.getElementById("errorPbroj").innerHTML = "Nije moguce utvrditi validnost";
+      if(data.ok) { document.getElementById("errorPbroj").innerHTML = ""; success(); } 
+      else if(data.greska) { document.getElementById("errorPbroj").innerHTML = data.greska; }
+      else if(data.error) { document.getElementById("errorPbroj").innerHTML = data.error; }
+      else { document.getElementById("errorPbroj").innerHTML = "Nije moguce potvrditi validnost"; }
     },
     function(data) {
-      alert('Do&#353;lo je do gre&#353;ke, poku&#353;ajte opet!');       return false;
+      alert('Do&#353;lo je do gre&#353;ke, poku&#353;ajte opet!');
     }
   );
 }
@@ -151,6 +168,9 @@ function ajaxPageload(method, url, data, success, fail) {
   };
 
   httpRequest.open(method, url, true);
+  
+  if(method == 'POST') httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); // dodano...
+  
   httpRequest.send(data);
 }
 
@@ -199,4 +219,100 @@ function dodajPredmet() {
       function(x) {alert("Dodavanje nije uspjelo :(")}
     );
   }
+}
+
+// novo...
+
+function resetForm() {
+  document.getElementById("ime").value = "";
+  document.getElementById("prezime").value = "";
+  document.getElementById("datumRodjenja").value = "";
+  document.getElementById("mail").value = "";
+  document.getElementById("grad").value = "";
+  document.getElementById("pbroj").value = "";
+  document.getElementById("kontakt").value = "";
+  document.getElementById("vrstaKontakta").value = "";
+  document.getElementById("ocjena").value = "";
+
+  document.getElementById("errorIme").innerHTML = "";
+  document.getElementById("errorPrezime").innerHTML = "";
+  document.getElementById("errorDatumRodjenja").innerHTML = "";
+  document.getElementById("errorMail").innerHTML = "";
+  //document.getElementById("errorGrad").innerHTML = "";
+  document.getElementById("errorPbroj").innerHTML = "";
+  document.getElementById("errorKontakt").innerHTML = "";
+  //document.getElementById("errorVrstaKontakta").innerHTML = "";
+  //document.getElementById("errorOcjena").innerHTML = "";
+}
+
+function sendForm() {
+  
+  /*var postData = {
+  'ime' : document.getElementById("ime").value,
+  'prezime' : document.getElementById("prezime").value,
+  'datumRodjenja' : document.getElementById("datumRodjenja").value,
+  'mail' : document.getElementById("mail").value,
+  'grad' : document.getElementById("grad").value,
+  'pbroj' : document.getElementById("pbroj").value,
+  'kontakt' : document.getElementById("kontakt").value,
+  'vrstaKontakta' : document.getElementById("vrstaKontakta").value,
+  'ocjena' : document.getElementById("ocjena").value
+  }*/
+
+  var postData = 'ime=' + document.getElementById("ime").value + '&prezime=' + document.getElementById("prezime").value + '&datumRodjenja=' + document.getElementById("datumRodjenja").value + '&mail=' + document.getElementById("mail").value + '&grad=' + document.getElementById("grad").value + '&pbroj=' + document.getElementById("pbroj").value + '&kontakt=' + document.getElementById("kontakt").value + '&vrstaKontakta=' + document.getElementById("vrstaKontakta").value + '&ocjena=' + document.getElementById("ocjena").value;
+
+  if(validno())
+  provjeriPbroj(function () {
+  ajaxPageload('POST',
+          'http://localhost/kontakt.php',
+          postData,
+          function(data) {
+            document.getElementById("sadrzaj").innerHTML = data;
+          },
+          function(data) {
+            alert("Gre&#353;ka: " + data);
+          }
+         )});
+}
+
+function sendMail() {
+
+  /*var postData = {
+  'ime' : document.getElementById("imeS").innerHTML,
+  'prezime' : document.getElementById("prezimeS").innerHTML,
+  'datumRodjenja' : document.getElementById("datumRodjenjaS").innerHTML,
+  'mail' : document.getElementById("mailS").innerHTML,
+  'grad' : document.getElementById("gradS").innerHTML,
+  'pbroj' : document.getElementById("pbrojS").innerHTML,
+  'kontakt' : document.getElementById("kontaktS").innerHTML,
+  'vrstaKontakta' : document.getElementById("vrstaKontaktaS").innerHTML,
+  'ocjena' : document.getElementById("ocjenaS").innerHTML
+  }*/
+
+  var postData = 'ime=' + document.getElementById("ime").value + '&prezime=' + document.getElementById("prezime").value + '&datumRodjenja=' + document.getElementById("datumRodjenja").value + '&mail=' + document.getElementById("mail").value + '&grad=' + document.getElementById("grad").value + '&pbroj=' + document.getElementById("pbroj").value + '&kontakt=' + document.getElementById("kontakt").innerHTML.trim() + '&vrstaKontakta=' + document.getElementById("vrstaKontakta").value + '&ocjena=' + document.getElementById("ocjena").value;
+
+  if(validno())
+  provjeriPbroj(function () {
+  ajaxPageload('POST',
+          'http://localhost/mail.php',
+          postData,
+          function(data) {
+            document.getElementById("sadrzaj").innerHTML = data;
+          },
+          function(data) {
+            alert("Gre&#353;ka: " + data);
+          }
+         )});
+}
+
+function fillForm() {
+  document.getElementById("ime").value = "awdawd";
+  document.getElementById("prezime").value = "awdawddaw";
+  document.getElementById("datumRodjenja").value = "1.1.2011";
+  document.getElementById("mail").value = "akwudwd@azwgdd.wd";
+  document.getElementById("grad").value = "Sarajevo";
+  document.getElementById("pbroj").value = "71000";
+  document.getElementById("kontakt").value = "kuawdugwkd";
+  document.getElementById("vrstaKontakta").value = "pitanje";
+  //document.getElementById("ocjena").value = "";
 }
