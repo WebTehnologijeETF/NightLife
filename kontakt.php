@@ -1,4 +1,19 @@
 <?php
+
+function curPageURL() {
+ $pageURL = 'http';
+ //if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+ $pageURL .= "://";
+ //if ($_SERVER["SERVER_PORT"] != "80") {
+  //$pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+ //} else {
+  $pageURL .= $_SERVER["SERVER_NAME"]; //.$_SERVER["REQUEST_URI"];
+ //}
+ return $pageURL;
+}
+
+$hostUrl = curPageURL();
+
   if(isset($_POST['ime'])) $ime = $_POST['ime']; else $imeOk = false;
   if(isset($_POST['prezime'])) $prezime = $_POST['prezime']; else $prezimeOk = false;
   if(isset($_POST['datumRodjenja'])) $datumRodjenja = $_POST['datumRodjenja']; else $datumRodjenjaOk = false;
@@ -60,14 +75,14 @@
 
 <br />
 <span class="tekst">Da li ste sigurni da zelite poslati ove podatke?</span><br />
-<input type="button" value="Siguran sam" onclick="sendMail()">
+<input type="button" value="Siguran sam" onclick="sendMail('<?php echo $hostUrl ?>/mail.php')">
 
 <br />
 <h3 class="tekst">Ako ste pogresno popunili formu, mozete ispod prepraviti unesene podatke</h3>
 <br />
 <?php } ?>
 
-      <form action="localhost/kontakt.php" onsubmit="return validno() && provjeriPbroj()"> <?php /* dodao ovdje i provjeriPbroj, da sprijecim slanje forme ako nije ok */ ?>
+      <form action="<?php echo $hostUrl ?>/kontakt.php" onsubmit="return validno() && provjeriPbroj()"> <?php /* dodao ovdje i provjeriPbroj, da sprijecim slanje forme ako nije ok */ ?>
         <label for="ime" class="tekst">Ime:</label> <input id="ime" type="text" name="ime" <?php if(isset($ime)) { ?> value="<?php echo htmlspecialchars($ime, ENT_QUOTES, "UTF-8") ?>" <?php } ?> onchange="provjeriIme()"><span id="errorIme" class="error"><?php $imeOk?"":"Morate unijeti ime" ?></span><br />
         <label for="prezime" class="tekst">Prezime:</label> <input id="prezime" type="text" name="prezime" <?php if(isset($prezime)) { ?> value="<?php echo htmlspecialchars($prezime, ENT_QUOTES, "UTF-8") ?>" <?php } ?> onchange="provjeriPrezime()"><span id="errorPrezime" class="error"><?php $prezimeOk?"":"Morate unijeti prezime" ?></span><br />
         <label for="datumRodjenja" class="tekst">Datum ro&#273;enja:</label> <input id="datumRodjenja" type="date" name="datumRodjenja" <?php if(isset($datumRodjenja)) { ?> value="<?php echo htmlspecialchars($datumRodjenja, ENT_QUOTES, "UTF-8") ?>" <?php } ?> onchange="provjeriDatum()"><span id="errorDatumRodjenja" class="error"><?php $datumRodjenjaOk?"":"Morate unijeti ispravan datum" ?></span><br />
@@ -96,6 +111,7 @@
         <textarea id="kontakt" name="kontakt" onchange="provjeriKontakt()"><?php if(isset($kontakt)) echo htmlspecialchars($kontakt, ENT_QUOTES, "UTF-8") ?>
         </textarea><span id="errorKontakt" class="error"><?php $kontaktOk?"":"Ako ste izabrali vrstu kontakta morate ostaviti komentar" ?></span><br />
         <label for="ocjena" class="tekst">Ocjena: </label><span class="tekst">0</span> <input id="ocjena" type="range" name="ocjena" <?php if(isset($ocjena)) { ?> value="<?php echo htmlspecialchars($ocjena, ENT_QUOTES, "UTF-8") ?>" <?php } ?> > <span class="tekst">5</span><br />
-        <input type="button" value="Po&#353;alji" onclick="sendForm()">
+        <input type="button" value="Po&#353;alji" onclick="sendForm('<?php echo $hostUrl ?>/kontakt.php')">
         <input type="button" value="Reset" onclick="resetForm()">
+        <?php //<input type="button" value="TEST" onclick="fillForm()"> ?>
       </form>

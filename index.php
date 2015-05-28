@@ -1,4 +1,22 @@
-﻿<!DOCTYPE html>
+﻿<?php
+
+function curPageURL() {
+ $pageURL = 'http';
+ //if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+ $pageURL .= "://";
+ //if ($_SERVER["SERVER_PORT"] != "80") {
+  //$pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+ //} else {
+  $pageURL .= $_SERVER["SERVER_NAME"]; //.$_SERVER["REQUEST_URI"];
+ //}
+ return $pageURL;
+}
+
+$hostUrl = curPageURL();
+
+?>
+
+<!DOCTYPE html>
 <html>
   <head>
     <link href="favicon.ico" rel="shortcut icon" />
@@ -46,83 +64,44 @@
     </div>
     <div>
       <ul id="navigacija">
-        <li><a href="javascript:void(0);" onclick="setContent('http://localhost/index-content.php')">Naslovnica</a></li>
-        <li><a href="javascript:void(0);" onclick="setContent('http://localhost/lokacije.html')">Lokacije</a></li>
-        <li><a href="javascript:void(0);" onclick="setContent('http://localhost/sponzori.html')">Sponzori</a></li>
-        <li><a href="javascript:void(0);" onclick="setContent('http://localhost/kontakt.php')">Kontakt</a></li>
-        <li><a href="javascript:void(0);" onclick="setContent('http://localhost/predmeti.html')">Predmeti</a></li>
+        <li><a href="javascript:void(0);" onclick="setContent('<?php echo $hostUrl ?>/index-content.html')">Naslovnica</a></li>
+        <li><a href="javascript:void(0);" onclick="setContent('<?php echo $hostUrl ?>/lokacije.html')">Lokacije</a></li>
+        <li><a href="javascript:void(0);" onclick="setContent('<?php echo $hostUrl ?>/sponzori.html')">Sponzori</a></li>
+        <li><a href="javascript:void(0);" onclick="setContent('<?php echo $hostUrl ?>/kontakt.php')">Kontakt</a></li>
+        <li><a href="javascript:void(0);" onclick="setContent('<?php echo $hostUrl ?>/predmeti.html')">Predmeti</a></li>
       </ul>
     </div>
 <div id="sadrzaj">
-  
-  <?php
-  class Novost {
-    var $naslov;
-    var $slika;
-    var $opis;
-    var $datum;
-    var $link;
-    var $autor;
-    var $detalji;
-
-    function Novost ($n, $s, $o, $d, $l, $a, $de) {
-      $this->$naslov = $n;
-      $this->$slika = $s;
-      $this->$opis = $o;
-      $this->$datum = $d;
-      $this->$link = $l;
-      $this->$autor = $a;
-      $this->$detalji = $de;
-    }
-  }
-
-  $novosti = array();
-
-  $filesx = scandir('/novosti');
-  $files = array_diff($filesx, array('..', '.'));
-  $brFiles = count($files, 1);
-  
-  for($j = 0; $j < $brFiles; $j++) {
-    $crtice = false;
-    $file = fopen('/novosti/' . $files[$j], 'r');
-    $dat = fgets($file);
-    $aut = fgets($file);    
-    $nas = fgets($file);
-    $sli = fgets($file);
-    $opi = "";
-    $det = "";
-    $lin = "http://localhost/index.php";
-    while(!feof($file)) {
-      $temp = fgets($file);
-      if(!$crtice) {
-        if($temp != "--") $opi .= $temp;
-        else $crtice = true;
-      }
-      else {
-        $det .= $temp;
-      }
-    }
-    fclose($file);
-    $novost = new Novost($nas, $sli, $opi, $dat, $lin, $aut, $det);
-    array_push($novosti, $novost);
-  }
-
-  $br = count($novosti);
-  for($i = 0; $i < $br; $i++) {
-?>
-
         <div class="novost">
-          <span class="novostNaslov tekst"><?php echo $novosti[$i]->$naslov ?></span><br />
-          <span class="novostAutor tekst"><?php echo $novosti[$i]->$autor ?></span><br />
-          <span class="novostDatum tekst"><?php echo $novosti[$i]->$datum ?></span><br />
-          <span class="novostDatum tekst"><?php echo $novosti[$i]->$opis ?></span><br />
-          <?php if($novosti[$i]->$detalji != "") { ?><span class="novostDetalji"><a  href="javascript:void(0);" onclick="setContent('<?php echo $novosti[$i]->$link ?>')">Detaljnije...</a></span><br /><?php } ?>
+          <span class="novostNaslov tekst">Mike Vale u Slogi</span><br />
+          <span class="novostAutor tekst"></span>Adnan Islamovi&#263;<br />
+          <span class="novostDatum tekst">22.3.2015.</span><br />
+          <span class="novostDetalji"><a href="javascript:void(0);">Detaljnije...</a></span><br />
         </div>
-
-<?php
-  }
-?>
-  
+        <div class="novost">
+          <span class="novostNaslov tekst">Karaoke night u Marquee-u</span><br />
+          <span class="novostAutor tekst"></span>Adnan Islamovi&#263;<br />
+          <span class="novostDatum tekst">20.3.2015.</span><br />
+          <span class="novostDetalji"><a href="javascript:void(0);">Detaljnije...</a></span><br />
+        </div>
+        <div class="novost">
+          <span class="novostNaslov tekst">Uskoro otvaranje novog kafi&#263;a &#268;eka</span><br />
+          <span class="novostAutor tekst"></span>Adnan Islamovi&#263;<br />
+          <span class="novostDatum tekst">17.8.2014.</span><br />
+          <span class="novostDetalji"><a href="javascript:void(0);">Detaljnije...</a></span><br />
+        </div>
+        <div class="novost">
+          <span class="novostNaslov tekst">Uskoro otvaranje kluba Subway</span><br />
+          <span class="novostAutor tekst"></span>Adnan Islamovi&#263;<br />
+          <span class="novostDatum tekst"></span>4.11.2014.<br />
+          <span class="novostDetalji"><a href="javascript:void(0);">Detaljnije...</a></span><br />
+        </div>
+        <div class="novost">
+          <span class="novostNaslov tekst"></span><br />
+          <span class="novostAutor tekst"></span><br />
+          <span class="novostDatum tekst"></span><br />
+          <span class="novostDetalji"><a href="javascript:void(0);"></a></span><br />
+        </div>
       </div>
   </body>
 </html>

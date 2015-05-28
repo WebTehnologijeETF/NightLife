@@ -245,7 +245,7 @@ function resetForm() {
   //document.getElementById("errorOcjena").innerHTML = "";
 }
 
-function sendForm() {
+function sendForm(url) {
   
   /*var postData = {
   'ime' : document.getElementById("ime").value,
@@ -261,10 +261,11 @@ function sendForm() {
 
   var postData = 'ime=' + document.getElementById("ime").value + '&prezime=' + document.getElementById("prezime").value + '&datumRodjenja=' + document.getElementById("datumRodjenja").value + '&mail=' + document.getElementById("mail").value + '&grad=' + document.getElementById("grad").value + '&pbroj=' + document.getElementById("pbroj").value + '&kontakt=' + document.getElementById("kontakt").value + '&vrstaKontakta=' + document.getElementById("vrstaKontakta").value + '&ocjena=' + document.getElementById("ocjena").value;
 
+  //url: 'http://localhost/kontakt.php'
   if(validno())
   provjeriPbroj(function () {
   ajaxPageload('POST',
-          'http://localhost/kontakt.php',
+          url,
           postData,
           function(data) {
             document.getElementById("sadrzaj").innerHTML = data;
@@ -275,7 +276,7 @@ function sendForm() {
          )});
 }
 
-function sendMail() {
+function sendMail(url) {
 
   /*var postData = {
   'ime' : document.getElementById("imeS").innerHTML,
@@ -291,10 +292,11 @@ function sendMail() {
 
   var postData = 'ime=' + document.getElementById("ime").value + '&prezime=' + document.getElementById("prezime").value + '&datumRodjenja=' + document.getElementById("datumRodjenja").value + '&mail=' + document.getElementById("mail").value + '&grad=' + document.getElementById("grad").value + '&pbroj=' + document.getElementById("pbroj").value + '&kontakt=' + document.getElementById("kontakt").innerHTML.trim() + '&vrstaKontakta=' + document.getElementById("vrstaKontakta").value + '&ocjena=' + document.getElementById("ocjena").value;
 
+  //url: 'http://localhost/mail.php'
   if(validno())
   provjeriPbroj(function () {
   ajaxPageload('POST',
-          'http://localhost/mail.php',
+          url,
           postData,
           function(data) {
             document.getElementById("sadrzaj").innerHTML = data;
